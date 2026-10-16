@@ -590,7 +590,9 @@
         localStorage.setItem('_cf_tok_enc', encodeStorage(tok));
         document.getElementById('clearStorageBtn').classList.remove('hidden');
       } else if (!shouldSave) {
-        clearStoredCredentials();
+        localStorage.removeItem('_cf_acc_enc');
+        localStorage.removeItem('_cf_tok_enc');
+        document.getElementById('clearStorageBtn').classList.add('hidden');
       }
     }
 
