@@ -30,6 +30,9 @@
 1. **`CLOUDFLARE_ACCOUNT_ID`**: شناسه اکانت کلودفلر شما.
 2. **`CLOUDFLARE_API_TOKEN`**: یک توکن کلودفلر با دسترسی `Cloudflare Pages: Edit`.
 
+در این فورک، نام پروژهٔ Pages برابر `jasaz-mhmd41i` است. بخش ربات تلگرام
+در workflow این فورک اجرا نمی‌شود؛ برای استقرار وب‌اپ فقط همین دو Secret لازم است.
+
 ### ۲. استقرار
 - با هر بار `push` به شاخه `main` یا کلیک روی دکمه **Run workflow** در تب **Actions** گیت‌هاب، پروژه به صورت خودکار بیلد و در Cloudflare Pages منتشر می‌شود.
 
