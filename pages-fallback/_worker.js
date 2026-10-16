@@ -8397,6 +8397,24 @@ async function func_ed(var_bzz, var_caa = null, var_cab = false, var_cac = null)
 var nahan_entry_default = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (request.method === "GET" && url.pathname === "/.well-known/nahan-ready") {
+      try {
+        if (!env.IOT_DB) return new Response(null, { status: 503 });
+        const row = await env.IOT_DB.prepare(
+          "SELECT value FROM kv_store WHERE key = 'sys_config'"
+        ).first();
+        if (!row?.value) return new Response(null, { status: 503 });
+        const route = JSON.parse(row.value)?.apiRoute || "sync";
+        url.pathname = `/${encodeURI(route)}`;
+        const sub = await worker_encode_default.fetch(new Request(url, request), env, ctx);
+        const body = await sub.text();
+        return new Response(null, {
+          status: sub.ok && body.length > 100 ? 204 : 503
+        });
+      } catch {
+        return new Response(null, { status: 503 });
+      }
+    }
     if (request.method === "GET" && /^\/sync\/sub\/?$/.test(url.pathname)) {
       let apiRoute = "sync";
       try {
